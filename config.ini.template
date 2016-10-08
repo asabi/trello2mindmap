@@ -1,0 +1,7 @@
+;Key and token to Trello (https://developers.trello.com/get-started)
+
+key = ''
+token = ''
+
+; case sensitive name of the trello board, or ALL to generate mindmaps of all boards
+boardToConvert = "ALL"

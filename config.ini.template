@@ -5,3 +5,11 @@ token = ''
 
 ; case sensitive name of the trello board, or ALL to generate mindmaps of all boards
 boardToConvert = "ALL"
+
+; An array of list names that are considered to be complete
+; (tasks are marked as complte on the mindmap)
+; case sensitive
+
+listsConsideredCompleted[] = Ready for release
+listsConsideredCompleted[] = Released
+listsConsideredCompleted[] = Done

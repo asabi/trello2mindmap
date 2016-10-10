@@ -29,7 +29,7 @@ foreach ($me->boards as $boardId => $board ) {
       $membersById = getAllMembersById($trello, $board->id);
       $cardLists = getCardLists($trello, $board->id, $membersById);
       $relationships = getCardRelationships($trello, $board->id,$cardLists['allCardsByUrl']);
-      generateMindMap($board->name, $lists, $membersById, $cardLists, $relationships);
+      generateMindMap($board->name, $lists, $membersById, $cardLists, $relationships, $conf);
     }
 
 
@@ -160,7 +160,7 @@ function getAllCards($trello, $boardId, $cardOptions) {
 
 }
 
-function generateMindMap($boardName, $lists, $membersById, $cardLists, $relationships) {
+function generateMindMap($boardName, $lists, $membersById, $cardLists, $relationships, $conf) {
   // Generate the mindmap
   $map = '<map version="0.9.0">
   <attribute_registry SHOW_ATTRIBUTES="hide"/>
@@ -179,7 +179,9 @@ function generateMindMap($boardName, $lists, $membersById, $cardLists, $relation
         // list content
         if (is_array($cardLists['allCardsByList'][$list->id])) {
           foreach ($cardLists['allCardsByList'][$list->id] as $cardId=>$card) {
-
+            if (in_array($list->name, $conf['listsConsideredCompleted'])) {
+              $card['completed'] = 100;
+            }
             $map .= generateSingleNode($card,$relationships);
           }
         }
@@ -209,7 +211,7 @@ function generateSingleNode($card,$relationships) {
   ?>
   <node ID="<?php echo $card['url']?>" TEXT="<?php echo $card['name'];?>" LINK="<?php echo $card['url']?>" STYLE="bubble" FOLDED="false">
       <richcontent TYPE="NOTE"><?php echo $card['desc'];?></richcontent>
-      <?php if ($card->completed == 100) { echo '<icon BUILTIN="itmz-tickbox"/>';} ?>
+      <?php if ($card['completed'] == 100) { echo '<icon BUILTIN="button_ok"/>';} ?>
       <attribute NAME="Progress" VALUE="<?php echo $card['completed'];?>"/>
       <?php if (array_key_exists($card['id'], $relationships)) { ?>
         <arrowlink DESTINATION="<?php echo $relationships[$card['id']];?>" COLOR="#470000" STARTARROW="None" ENDARROW="Default" SOURCE_LABEL="" MIDDLE_LABEL="Related" TARGET_LABEL="" />

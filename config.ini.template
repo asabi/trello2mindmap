@@ -4,7 +4,7 @@ key = ''
 token = ''
 
 ; case sensitive name of the trello board, or ALL to generate mindmaps of all boards
-boardToConvert = "ALL"
+boardsToConvert[] = "ALL"
 
 ; An array of list names that are considered to be complete
 ; (tasks are marked as complte on the mindmap)

@@ -21,7 +21,7 @@ $me = $trello->members->get('me',$boardsOptions);
 // Loop through the boards
 foreach ($me->boards as $boardId => $board ) {
       //
-      if ($conf['boardToConvert'] != 'ALL' && $board->name != $conf['boardToConvert']) {
+      if (!in_array('ALL',$conf['boardsToConvert']) && !in_array($board->name, $conf['boardsToConvert'])) {
         continue;
       }
 

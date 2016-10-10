@@ -7,7 +7,7 @@ token = ''
 boardsToConvert[] = "ALL"
 
 ; An array of list names that are considered to be complete
-; (tasks are marked as complte on the mindmap)
+; (tasks are marked as complete on the mindmap)
 ; case sensitive
 
 listsConsideredCompleted[] = Ready for release
